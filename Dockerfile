@@ -48,6 +48,9 @@ COPY ./docker/startup.sh /usr/local/bin/startup.sh
 # Give execution permission to the startup script
 RUN chmod +x /usr/local/bin/startup.sh
 
+# Give permission to www-data user
+RUN chown -R www-data:www-data /var/www/html
+
 # Copy the php-fpm configuration file
 COPY ./docker/php-fpm.conf /usr/local/etc/php-fpm.d/zzz_custom.conf
 
