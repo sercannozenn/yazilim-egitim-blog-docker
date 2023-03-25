@@ -43,7 +43,7 @@ COPY ./docker/nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy the startup script
-COPY ./startup.sh /usr/local/bin/startup.sh
+COPY ./docker/startup.sh /usr/local/bin/startup.sh
 
 # Give execution permission to the startup script
 RUN chmod +x /usr/local/bin/startup.sh
@@ -56,4 +56,6 @@ EXPOSE 80
 EXPOSE 443
 
 # Run the startup script
-CMD ["startup.sh"]
+CMD sh /docker/startup.sh
+
+#CMD ["startup.sh"]
