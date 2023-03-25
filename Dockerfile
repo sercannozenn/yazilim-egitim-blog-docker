@@ -29,5 +29,5 @@ RUN chown -R www-data:www-data storage bootstrap/cache && \
 # Expose port 80
 EXPOSE 80
 
-# Run supervisord to start PHP-FPM and NGINX
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+# Start PHP-FPM
+CMD ["php-fpm"]
