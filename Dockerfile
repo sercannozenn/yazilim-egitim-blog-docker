@@ -37,10 +37,10 @@ USER www-data
 RUN composer install --no-dev --prefer-dist --no-interaction
 
 # Copy the nginx configuration file
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the supervisord configuration file
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Copy the startup script
 COPY ./startup.sh /usr/local/bin/startup.sh
@@ -49,7 +49,7 @@ COPY ./startup.sh /usr/local/bin/startup.sh
 RUN chmod +x /usr/local/bin/startup.sh
 
 # Copy the php-fpm configuration file
-COPY ./php-fpm.conf /usr/local/etc/php-fpm.d/zzz_custom.conf
+COPY ./docker/php-fpm.conf /usr/local/etc/php-fpm.d/zzz_custom.conf
 
 # Expose ports 80 and 443
 EXPOSE 80
