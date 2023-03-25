@@ -61,7 +61,7 @@ EXPOSE 443
 # Give execution permission to the startup script
 RUN chmod +x /usr/local/bin/startup.sh && chown www-data:www-data /usr/local/bin/startup.sh
 # Run the startup script
-#CMD sh ./docker/startup.sh
+
 RUN chown -R www-data: ./
 
 CMD ["startup.sh"]
