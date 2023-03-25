@@ -56,6 +56,6 @@ EXPOSE 80
 EXPOSE 443
 
 # Run the startup script
-CMD sh /docker/startup.sh
+#CMD sh ./docker/startup.sh
 
-#CMD ["startup.sh"]
+CMD ["startup.sh"]
