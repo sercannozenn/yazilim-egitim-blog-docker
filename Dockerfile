@@ -52,8 +52,5 @@ COPY ./docker/startup.sh /usr/local/bin/startup.sh
 # Copy the php-fpm configuration file
 COPY ./docker/php-fpm.conf /usr/local/etc/php-fpm.d/zzz_custom.conf
 
-# Expose ports 80 and 443
-EXPOSE 8080
-EXPOSE 443
 
 CMD ["startup.sh"]
