@@ -1,5 +1,5 @@
 # Base image
-FROM php:8.1-fpm-alpine
+FROM php:8.2-fpm-alpine
 
 # Set working directory
 WORKDIR /var/www/html
@@ -24,33 +24,21 @@ RUN docker-php-ext-install \
     pdo_mysql \
     zip
 
+RUN mkdir -p /run/nginx
+
+COPY docker/nginx.conf /etc/nginx/nginx.conf
+
+RUN mkdir -p /app
+COPY . /app
+
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy the application files to the container
-COPY --chown=www-data:www-data . .
-
-# Switch to www-data user
-USER www-data
-
 # Install the application dependencies
-RUN composer install --no-dev --prefer-dist --no-interaction
-
-USER root
-# Copy the nginx configuration file
-COPY ./docker/nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy the supervisord configuration file
-COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-# Copy the startup script
-COPY ./docker/startup.sh /usr/local/bin/startup.sh
-
-# Give execution permission to the startup script
-#RUN chmod +x /usr/local/bin/startup.sh
+RUN cd /app && composer install --no-dev --prefer-dist --no-interaction
 
 # Copy the php-fpm configuration file
 COPY ./docker/php-fpm.conf /usr/local/etc/php-fpm.d/zzz_custom.conf
-
 
 CMD ["startup.sh"]
