@@ -41,4 +41,6 @@ RUN cd /app && composer install --no-dev --prefer-dist --no-interaction
 # Copy the php-fpm configuration file
 COPY ./docker/php-fpm.conf /usr/local/etc/php-fpm.d/zzz_custom.conf
 
-CMD ["startup.sh"]
+RUN chown -R www-data: /app
+
+CMD sh /app/docker/startup.sh
